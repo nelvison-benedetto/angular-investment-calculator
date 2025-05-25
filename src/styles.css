@@ -12,7 +12,7 @@ body{
   color: #c3b3d8;
 }
 img{max-width: 100%;}
-#debug *{
+.debug *{
   border: 1px dashed white;
 }
 
