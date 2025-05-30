@@ -1,6 +1,6 @@
 export interface User {
-  initInvestment: number | null;
-  annualInvestment: number | null;
-  expectedReturn: number | null;
-  duration: number | null;
+  initInvestment: number; //if is 'number | null' null is a problem x output emit ect
+  annualInvestment: number;
+  expectedReturn: number;
+  duration: number;
 }

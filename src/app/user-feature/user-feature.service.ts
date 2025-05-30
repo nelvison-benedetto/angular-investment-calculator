@@ -1,35 +1,47 @@
-import { Inject, Injectable } from "@angular/core";
+import { Inject, Injectable, signal } from "@angular/core";
 import { User } from "./user.module";
+import { ResultData } from "../investment-feature/result.module";
 
-
-@Injectable({providedIn: 'root'}) // oppure standalone: true in Angular 17+
+@Injectable({providedIn: 'root'}) // x new use also: this standaalone:true in .ts, and in target use   userService = inject(UserService);
 export class UserService {
 
-  setUserData(data: User){
+  userData = signal<ResultData[] | null>(null);  //BEST METHOD W signal: now you can inject UserService and access to userData anywhere you are!
+    //private userService = inject(UserService);
+    //to set userData:      this.userService.userData.set(userData);
+    //to get userData:      const user = this.userService.userData();
 
-    console.log("in service user-feature");
-    console.log(data);
 
-    const annualData = [];
-    let investmentValue = data.initInvestment;
+  oncalculateInvestmentResults(data:User
+  //   {  //already defined in User
+  //   initInvestment: number,
+  //   duration: number,
+  //   annualInvestment: number,
+  //   expectedReturn: number
+  // }
+  ) : ResultData[] {
+      const {initInvestment, duration, annualInvestment, expectedReturn} = data;
 
-    for(let i=0; i<data.duration; i++){
-      const year = i+1;
-      const interestEarnedInYear = investmentValue * (data.expectedReturn / 100);
-      investmentValue += interestEarnedInYear + data.annualInvestment;
-      const totalInterest =
-        investmentValue - data.annualInvestment * year - data.initInvestment;
-      annualData.push({
-        year : year,
-        interest :interestEarnedInYear,
-        valueEndOfYear :  investmentValue,
-        annualInvestment : data.annualInvestment,
-        totalInterest : totalInterest,
-        totalAmountInvested : data.initInvestment + data.annualInvestment * year,
-      });
+      const annualData = [];
+      let investmentValue = data.initInvestment;
 
+      for (let i = 0; i < duration; i++) {
+        const year = i + 1;
+        const interestEarnedInYear =
+          investmentValue * (expectedReturn / 100);
+        investmentValue += interestEarnedInYear + annualInvestment;
+        const totalInterest =
+          investmentValue - annualInvestment * year - initInvestment;
+        annualData.push({
+          year: year,
+          interest: interestEarnedInYear,
+          valueEndOfYear: investmentValue,
+          annualInvestment: data.annualInvestment,
+          totalInterest: totalInterest,
+          totalAmountInvested:
+            initInvestment + annualInvestment * year,
+        });
+      }
       return annualData;
-    }
-
   }
+
 }

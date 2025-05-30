@@ -1,0 +1,36 @@
+<!-- <p>{{results()}}</p> -->
+
+@if (results()?.length === 0) {
+  <h3 class="text-center my-4">Nothing to calculate.</h3>
+}@else{
+
+  <div class="  d-flex flex-column justify-content-center align-items-center" style="margin: 4rem 0 6rem 0;">
+    <h2 class="mb-3">Results</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Interest (Year)</th>
+          <th>Value End Year</th>
+          <!-- <th>Annual Investment</th> -->
+          <th>Total Interest</th>
+          <th>Invested Capital</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (result of results(); track result.year) {  <!--or use old way  *ngFor="let item of results"-->
+          <tr>
+            <td>{{ result.year }}</td>
+            <td>{{ result.interest | currency: 'EUR' }}</td>
+            <td>{{ result.valueEndOfYear | currency: 'EUR' }}</td>
+            <!-- <td>{{ result.annualInvestment }}</td> -->
+            <td>{{ result.totalInterest | currency: 'EUR' }}</td>
+            <td>{{ result.totalAmountInvested | currency: 'EUR' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+}
+
