@@ -1,7 +1,7 @@
 import { Component, inject, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../user-feature.service';
-import type { User } from '../user.module';  //'type' so the import doesnt produce codes(in js file at runtime)!! X STATIC IMPORTS(also x static COMPONENTS!!)
+import type { User } from '../user.module';  //'type' so the import doesnt produce codes(in js file at runtime)!! X STATIC IMPORTS(also x static COMPONENTS!!). User is an interface
 import type { ResultData } from '../../investment-feature/result.module';
 
 @Component({
@@ -33,7 +33,7 @@ export class UserInputComponent {
     this.userService.userData.set(results);
       //to use in the target:  const user = this.userService.userData();
 
-    console.log(this.userService.userData());
+    console.log(this.userService.userData());  //read value userData() in user-feature.service.ts
 
     this.calculate.emit(userData); //only x education, i use instead shared service
   }

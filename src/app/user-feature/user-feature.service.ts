@@ -5,7 +5,7 @@ import { ResultData } from "../investment-feature/result.module";
 @Injectable({providedIn: 'root'}) // x new use also: this standaalone:true in .ts, and in target use   userService = inject(UserService);
 export class UserService {
 
-  userData = signal<ResultData[] | null>(null);  //BEST METHOD W signal: now you can inject UserService and access to userData anywhere you are!
+  userData = signal<ResultData[] | null>(null);  //BEST METHOD W signal: now you can inject UserService and access to userData anywhere you are!!
     //private userService = inject(UserService);
     //to set userData:      this.userService.userData.set(userData);
     //to get userData:      const user = this.userService.userData();
@@ -18,7 +18,7 @@ export class UserService {
   //   annualInvestment: number,
   //   expectedReturn: number
   // }
-  ) : ResultData[] {
+  ) : ResultData[] {  //type of return
       const {initInvestment, duration, annualInvestment, expectedReturn} = data;
 
       const annualData = [];
